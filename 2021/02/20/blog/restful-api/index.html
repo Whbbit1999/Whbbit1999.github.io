@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 6.0.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  <title>Restful接口分格规范 - WHBBIT</title>
+
+  
+    <meta name="description" content="自己写的接口总是看起来不那么优雅，系统的学习了一下 Restful 接口规范。希望我写的接口不再那么混乱吧。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Restful接口分格规范">
+<meta property="og:url" content="http://blog.whbbit.cn/2021/02/20/blog/restful-api/index.html">
+<meta property="og:site_name" content="WHBBIT">
+<meta property="og:description" content="自己写的接口总是看起来不那么优雅，系统的学习了一下 Restful 接口规范。希望我写的接口不再那么混乱吧。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-02-20T00:34:25.000Z">
+<meta property="article:modified_time" content="2021-02-20T00:34:25.000Z">
+<meta property="article:author" content="whbbit">
+<meta property="article:tag" content="http">
+<meta property="article:tag" content="restful">
+<meta property="article:tag" content="接口">
+<meta name="twitter:card" content="summary">
+  
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="WHBBIT" type="application/atom+xml">
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+    
+      <link rel="icon" type="image/png" sizes="32x32" href="https://whbbit-blog.oss-cn-beijing.aliyuncs.com/codelogo.png">
+    
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='post'>
+    
+
+
+<header class="header">
+
+<div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://whbbit-blog.oss-cn-beijing.aliyuncs.com/codelogo.png" onerror="javascript:this.classList.add('error');this.src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/image/2659360.svg';"></a><a class="title" href="/"><div class="main">WHBBIT</div><div class="sub normal cap">月空人</div><div class="sub hover cap" style="opacity:0">blog.whbbit.cn</div></a></div>
+<nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/sites/">收藏</a><a class="nav-item" href="/more/">更多</a></nav></header>
+
+<div class="widgets">
+
+<div class="widget-wrap single" id="toc"><div class="widget-header cap dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#URL-%E8%AE%BE%E8%AE%A1%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-text">URL 设计最佳实践</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%8A%A8%E8%AF%8D-%E5%AE%BE%E8%AF%AD"><span class="toc-text">1.1 动词 + 宾语</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%AE%BE%E8%AF%AD%E5%BF%85%E9%A1%BB%E6%98%AF%E5%90%8D%E8%AF%8D"><span class="toc-text">1.2 宾语必须是名词</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E5%A4%8D%E6%95%B0-URL"><span class="toc-text">1.3 复数 URL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#REST-%E7%9A%84%E6%8C%87%E5%AF%BC%E5%8E%9F%E5%88%99"><span class="toc-text">REST 的指导原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PUT-%E5%92%8C-POST-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">PUT 和 POST 的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94"><span class="toc-text">对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PUT-%E4%B8%8E-POST-%E4%B8%BE%E4%BE%8B"><span class="toc-text">PUT 与 POST : 举例</span></a></li></ol></li></ol></div></div></div>
+
+
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2021-02-20T00:34:25.000Z">2021-02-20</time></div></div>
+
+<article class='content md post'>
+<h1 class="article-title"><span>Restful接口分格规范</span></h1>
+<p>自己写的接口总是看起来不那么优雅，系统的学习了一下 Restful 接口规范。希望我写的接口不再那么混乱吧。</p>
+<span id="more"></span>
+
+<h2 id="URL-设计最佳实践"><a href="#URL-设计最佳实践" class="headerlink" title="URL 设计最佳实践"></a>URL 设计最佳实践</h2><h3 id="1-1-动词-宾语"><a href="#1-1-动词-宾语" class="headerlink" title="1.1 动词 + 宾语"></a>1.1 动词 + 宾语</h3><p>动词通常是五种 HTTP 方法，对应 CRUD 操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GET: 读取数据(Read)</span><br><span class="line">POST: 新建数据(Create)</span><br><span class="line">PUT: 更新数据(Update)</span><br><span class="line">PATCH: 更新数据(Update)，部分更新</span><br><span class="line">DELETE: 删除数据(Delete)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>请求方式</th>
+<th>接口</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GET</td>
+<td>&#x2F;articles</td>
+<td>获取文章列表</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>&#x2F;articles&#x2F;:id</td>
+<td>获取某个文章</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>&#x2F;articles</td>
+<td>新建文章</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>&#x2F;articles&#x2F;:id</td>
+<td>更新某个文章</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>&#x2F;articles&#x2F;:id</td>
+<td>删除某个文章</td>
+</tr>
+</tbody></table>
+</blockquote>
+<h3 id="1-2-宾语必须是名词"><a href="#1-2-宾语必须是名词" class="headerlink" title="1.2 宾语必须是名词"></a>1.2 宾语必须是名词</h3><p>宾语就是 API 的 URL，是 HTTP 动词作用的对象。它应该是名词，不能是动词。例如： <code>/article</code> 这个 URL 就是正确的，而下面的 URL 不是名词，所以都是错误的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/getAllCars</span><br><span class="line">/createNewCar</span><br><span class="line">/deleteAllRedCars</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3-复数-URL"><a href="#1-3-复数-URL" class="headerlink" title="1.3 复数 URL"></a>1.3 复数 URL</h3><p>既然 URL 是名词，那么该用复数还是单数呢？<br>这个没有统一的规定，但是常见的操作是读取一个集合，如 <code>GET /articles</code>读取所有文章，这里显然要用复数。<br>为了统一，都用复数 URL。如 <code>GET /articles/2</code> 要好于 <code>GET /article/2</code></p>
+<h2 id="REST-的指导原则"><a href="#REST-的指导原则" class="headerlink" title="REST 的指导原则"></a>REST 的指导原则</h2><ol>
+<li><strong>客户端-服务器</strong>：通过将用户接口问题与数据存储问题分开，我们通过简化服务器组件来提高多个平台的用户接口的可移植性并提高可伸缩性。</li>
+<li><strong>无状态</strong>：从客户端到服务器的每个请求都必须包含理解请求所需的所有信息，并且不能利用服务器上任何存储的上下文。因此，会话状态完全保留在客户端上。</li>
+<li><strong>可缓存</strong>：缓存约束要求将对请求的响应中的数据隐式或显示标记为可缓存或不可缓存。如果响应是可缓存的，则客户端缓存有权重用该响应数据以用于以后的等效请求。</li>
+<li><strong>统一接口</strong>：通过将通用性的软件工程原理应用于组件接口，简化了整个系统架构，提高了交互的可见性。为了获得统一的接口，需要多个架构约束来指导组件的行为。REST 由四个接口约束定义：资源识别; 通过陈述来处理资源; 自我描述性的信息; 并且，超媒体作为应用程序状态的引擎。</li>
+<li><strong>分层系统</strong>：分层系统风格允许通过约束组件行为来使体系结构由分层层组成，这样每个组件都不能“看到”超出与它们交互的直接层。</li>
+<li><strong>按需编码（可选）</strong>：REST 允许通过以小程序或脚本的形式下载和执行代码来扩展客户端功能。这通过减少预先实现所需的功能数量来简化客户端。</li>
+</ol>
+<h2 id="PUT-和-POST-的区别"><a href="#PUT-和-POST-的区别" class="headerlink" title="PUT 和 POST 的区别"></a>PUT 和 POST 的区别</h2><blockquote>
+<p>摘自 (RESTful API)[<a target="_blank" rel="noopener" href="http://restful.p2hp.com/faqs/rest-put-vs-post]">http://restful.p2hp.com/faqs/rest-put-vs-post]</a></p>
+</blockquote>
+<h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><table>
+<thead>
+<tr>
+<th>PUT</th>
+<th>POST</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RFC-2616 明确提到 <code>PUT</code> 对所包含实体的方法请求存储在提供的 <code>Request-URI</code> 下。如果 Request-URI 引用已存在的资源 - 将发生更新操作，否则如果 Request-URI 是有效资源 URI（假设允许客户端确定资源标识符），则应该发生 create 操作。<code>PUT/questions/&#123;question-id&#125;</code></td>
+<td>该<code>POST</code> 方法用于请求源服务器接受请求中包含的实体作为请求行中的 Request-URI 标识的资源的新下级。它本质上意味着 <code>POST</code> request-URI 应该是一个集合 URI。<code>POST/questions</code></td>
+</tr>
+<tr>
+<td><code>PUT</code> 方法是幂等的。因此，如果您多次发送重试请求，那应该等同于单个请求修改。</td>
+<td><code>POST</code> 不是幂等的。因此，如果您重试请求 N 次，您将最终拥有 N 个资源，其中 N 个不同的 URI 在服务器上创建。</td>
+</tr>
+<tr>
+<td><code>PUT</code> 当您想要修改已经属于资源集合的单一资源时使用。PUT 完全替换资源。如果请求更新资源的一部分，请使用 PATCH。</td>
+<td><code>POST</code> 要在资源集合下添加子资源时使用。</td>
+</tr>
+<tr>
+<td>虽然 <code>PUT</code> 是幂等的，但我们不会缓存它的反应。</td>
+<td>除非响应包含适当的 Cache-Control 或 Expires 头字段，否则对此方法的响应不可<code>缓存</code>。但是，303（请参阅其他）响应可用于指示用户代理检索可缓存资源。</td>
+</tr>
+<tr>
+<td>通常，在实践中，始终使用 PUT 进行 UPDATE 操作。</td>
+<td>始终 POST 用于 CREATE 操作。</td>
+</tr>
+</tbody></table>
+<h3 id="PUT-与-POST-举例"><a href="#PUT-与-POST-举例" class="headerlink" title="PUT 与 POST : 举例"></a>PUT 与 POST : 举例</h3><p>假设我们正在设计网络应用程序。让我们列出几个 URI 及其目的，以便更好地了解如何使用 <code>POST</code> 以及何时使用 <code>PUT</code> 操作。</p>
+<p>GET &#x2F;device-management&#x2F;devices : 获取所有设备<br><strong>POST</strong> &#x2F;device-management&#x2F;devices : 创建新设备</p>
+<p>GET &#x2F;device-management&#x2F;devices&#x2F;{id} : 获取 id 对应的设备信息<br><strong>PUT</strong> &#x2F;device-management&#x2F;devices&#x2F;{id} : 更新由 id 标识的设备信息<br>DELETE &#x2F;device-management&#x2F;devices&#x2F;{id} : 通过 id 删除设备信息</p>
+
+
+<div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section><section id="share"><div class="header"><span>分享文章</span></div><div class="body"><div class="link"><input class="copy-area" readonly="true" id="copy-link" value="http://blog.whbbit.cn/2021/02/20/blog/restful-api/" /></div><div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot)"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/b32ef3da1162a.svg"/></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=http://blog.whbbit.cn/2021/02/20/blog/restful-api/&title=Restful接口分格规范 - WHBBIT&summary=自己写的接口总是看起来不那么优雅，系统的学习了一下 Restful 接口规范。希望我写的接口不再那么混乱吧。"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/80c07e4dbb303.svg"/></a><a class="social share-item email" href="mailto:?subject=Restful接口分格规范 - WHBBIT&amp;body=http://blog.whbbit.cn/2021/02/20/blog/restful-api/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/a1b00e20f425d.svg"/></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/8411ed322ced6.svg"/></a></div><div class="qrcode" id="qrcode-wechat" style="visibility:hidden;height:0"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=http://blog.whbbit.cn/2021/02/20/blog/restful-api/index.html"/></div></div></section></div>
+
+</article>
+
+<div class="related-wrap reveal" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body fs14"><a id="next" href="/2021/02/02/blog/vue-data/">Vue组件中data为什么是函数<span class="note">较早</span></a><div class="line"></div><a id="prev" href="/2021/02/25/blog/20210225/">ES6中的Object.keys()<span class="note">较新</span></a></section></div>
+
+
+<div class="related-wrap reveal" id="related-posts">
+    <section class='header'>
+      <div class='title cap theme'>您可能感兴趣的文章</div>
+    </section>
+    <section class='body'>
+    <div class="related-posts"><a class="item" href="/2020/12/23/blog/httpStatusCode/" title="HTTP状态码及其含义"><div class="img"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?http" /></div><span class="title">HTTP状态码及其含义</span></a><a class="item" href="/2021/03/01/blog/2021-03-01-ReactBase/" title="React基础和自定义hooks"><div class="img"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?react" /></div><span class="title">React基础和自定义hooks</span><span class="excerpt">这两天在看峰华大佬的 react 教程，顺便做点笔记来加深一下印象。</span></a></div></section></div>
+
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="text"><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="http://blog.whbbit.cn/">@whbbit</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.6.1" title="v1.6.1">Stellar</a> 作为主题。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.6.1';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@6/swiper-bundle.min.css","js":"https://unpkg.com/swiper@6/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

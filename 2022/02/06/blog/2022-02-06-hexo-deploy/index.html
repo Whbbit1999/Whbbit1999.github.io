@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 6.0.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  <title>使用GitHub Actions进行hexo自动化部署 - WHBBIT</title>
+
+  
+    <meta name="description" content="第一次使用 GitHub Actions 进行 hexo 自动化部署记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用GitHub Actions进行hexo自动化部署">
+<meta property="og:url" content="http://blog.whbbit.cn/2022/02/06/blog/2022-02-06-hexo-deploy/index.html">
+<meta property="og:site_name" content="WHBBIT">
+<meta property="og:description" content="第一次使用 GitHub Actions 进行 hexo 自动化部署记录">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://whbbit-blog.oss-cn-beijing.aliyuncs.com/%E6%88%AA%E5%B1%8F2022-02-06%20%E4%B8%8B%E5%8D%8810.06.50.png">
+<meta property="og:image" content="https://whbbit-blog.oss-cn-beijing.aliyuncs.com/%E6%88%AA%E5%B1%8F2022-02-06%20%E4%B8%8B%E5%8D%8810.13.06.png">
+<meta property="og:image" content="https://whbbit-blog.oss-cn-beijing.aliyuncs.com/%E6%88%AA%E5%B1%8F2022-02-06%20%E4%B8%8B%E5%8D%8810.21.25.png">
+<meta property="og:image" content="https://whbbit-blog.oss-cn-beijing.aliyuncs.com/%E6%88%AA%E5%B1%8F2022-02-06%20%E4%B8%8B%E5%8D%8810.21.54.png">
+<meta property="og:image" content="https://whbbit-blog.oss-cn-beijing.aliyuncs.com/%E6%88%AA%E5%B1%8F2022-02-06%20%E4%B8%8B%E5%8D%8810.24.51.png">
+<meta property="article:published_time" content="2022-02-05T23:23:00.000Z">
+<meta property="article:modified_time" content="2022-02-05T23:23:00.000Z">
+<meta property="article:author" content="whbbit">
+<meta property="article:tag" content="GitHub">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://whbbit-blog.oss-cn-beijing.aliyuncs.com/%E6%88%AA%E5%B1%8F2022-02-06%20%E4%B8%8B%E5%8D%8810.06.50.png">
+  
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="WHBBIT" type="application/atom+xml">
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+    
+      <link rel="icon" type="image/png" sizes="32x32" href="https://whbbit-blog.oss-cn-beijing.aliyuncs.com/codelogo.png">
+    
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='post'>
+    
+
+
+<header class="header">
+
+<div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://whbbit-blog.oss-cn-beijing.aliyuncs.com/codelogo.png" onerror="javascript:this.classList.add('error');this.src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/image/2659360.svg';"></a><a class="title" href="/"><div class="main">WHBBIT</div><div class="sub normal cap">月空人</div><div class="sub hover cap" style="opacity:0">blog.whbbit.cn</div></a></div>
+<nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/sites/">收藏</a><a class="nav-item" href="/more/">更多</a></nav></header>
+
+<div class="widgets">
+
+<div class="widget-wrap single" id="toc"><div class="widget-header cap dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-GitHub-Actions"><span class="toc-text">什么是 GitHub Actions</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GitHub-Actions-%E7%9A%84%E6%9C%AF%E8%AF%AD"><span class="toc-text">GitHub Actions 的术语</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#workflow-%E6%96%87%E4%BB%B6"><span class="toc-text">workflow 文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#workflow-%E5%AD%97%E6%AE%B5"><span class="toc-text">workflow 字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E6%AF%94%E8%BE%83%E5%AE%8C%E6%95%B4%E7%9A%84%E7%A4%BA%E4%BE%8B%EF%BC%9A"><span class="toc-text">一个比较完整的示例：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86-hexo-%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%88%B0-GitHub-Page-%E4%B8%8A"><span class="toc-text">将 hexo 自动部署到 GitHub Page 上</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-GitHub-%E4%BB%93%E5%BA%93"><span class="toc-text">创建 GitHub 仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-GitHub-Token"><span class="toc-text">创建 GitHub Token</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0-workflows"><span class="toc-text">添加 workflows</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#push-%E4%BB%A3%E7%A0%81%EF%BC%8C%E6%9F%A5%E7%9C%8B-action-%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="toc-text">push 代码，查看 action 执行过程</span></a></li></ol></li></ol></div></div></div>
+
+
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/blog/categories/github/">GitHub</a></div><div id="post-meta">发布于&nbsp;<time datetime="2022-02-05T23:23:00.000Z">2022-02-06</time></div></div>
+
+<article class='content md post'>
+<h1 class="article-title"><span>使用GitHub Actions进行hexo自动化部署</span></h1>
+<p>第一次使用 GitHub Actions 进行 hexo 自动化部署记录</p>
+<span id="more"></span>
+
+<h2 id="什么是-GitHub-Actions"><a href="#什么是-GitHub-Actions" class="headerlink" title="什么是 GitHub Actions"></a>什么是 GitHub Actions</h2><blockquote>
+<p>GitHub Actions 是 GitHub 推出的持续集成服务。</p>
+</blockquote>
+<p>GitHub 官方做了一个<a target="_blank" rel="noopener" href="https://github.com/marketplace?type=actions">应用市场</a>，在这里可以搜索到其他人提交的 actions。<br>每一个 acionts 都是一个独立的脚本。</p>
+<h3 id="GitHub-Actions-的术语"><a href="#GitHub-Actions-的术语" class="headerlink" title="GitHub Actions 的术语"></a>GitHub Actions 的术语</h3><ol>
+<li>workflow（工作流）： 持续集成一次运行的过程就是一个 workflow</li>
+<li>job（任务）：一个 workflow 由多个 job 组成，就是一次持续集成的运行，可以执行多个任务。</li>
+<li>step（步骤）：每个 job 由多个 step 构成，由上到下依次完成。</li>
+<li>action（动作）： 每个 step 都是可以一次执行一个过多个 action</li>
+</ol>
+<h3 id="workflow-文件"><a href="#workflow-文件" class="headerlink" title="workflow 文件"></a>workflow 文件</h3><p>此文件放置于项目根目录下的 <code>.github/workflow</code>目录。使用 yml 文件格式。如此项目中的 <code>hexo-deploy.yml</code>。一个代码仓库可以有多个 workflow 文件，且只要是在<code>.github/workflow</code>目录下的 <code>.yml</code>文件，GitHub 就会自动执行。</p>
+<p>workflow 可以配置的项很多，详见<a target="_blank" rel="noopener" href="https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions">官方文档</a></p>
+<h3 id="workflow-字段"><a href="#workflow-字段" class="headerlink" title="workflow 字段"></a>workflow 字段</h3><ol>
+<li>name</li>
+</ol>
+<p>name 字段是 workflow 的名称。如果没有 name，就自动使用文件名作为 name</p>
+<ol start="2">
+<li>on</li>
+</ol>
+<p>on 字段是指定触发 workflow 的条件，通常是某个事件</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">on:</span> <span class="string">push</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>上面代码表示在代码 push 时触发该 overflow</p>
+</blockquote>
+<p>可以去 GitHub 去查看<a target="_blank" rel="noopener" href="https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows">完整的事件列表</a>。除了这些事件，GitHub Actions 也支持外部事件触发或者定时运行。</p>
+<ol start="3">
+<li>on.&lt;push|pull_request&gt;.&lt;tags|branches&gt;</li>
+</ol>
+<p>触发指定事件时可以限制出发的分支或标签</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>上面的代码表示在代码 push 到 main 分支时触发该 overflow</p>
+</blockquote>
+<ol start="4">
+<li>jobs.&lt;job_id&gt;.name</li>
+</ol>
+<p>workflow 文件的主体是 job 字段，表示要执行的一项或多项任务。<br>job 字段里，需要写出每一项任务的 job_id，具体名称自定义。job_id 里面的 name 字段是任务的说明</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">first_job:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">My</span> <span class="string">First</span> <span class="string">Job</span></span><br><span class="line">  <span class="attr">sec_job:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">My</span> <span class="string">Secound</span> <span class="string">Job</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>其中的 first_job 和 sec_job 是 job_id。</p>
+</blockquote>
+<ol start="5">
+<li>jobs.&lt;job_id&gt;.needs</li>
+</ol>
+<p>needs 字段置当前任务的依赖关系（运行顺序）</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">job1:</span></span><br><span class="line">  <span class="attr">job2:</span></span><br><span class="line">    <span class="attr">needs:</span> <span class="string">job1</span></span><br><span class="line">  <span class="attr">job3:</span></span><br><span class="line">    <span class="attr">needs:</span> [<span class="string">job1</span>, <span class="string">job2</span>]</span><br></pre></td></tr></table></figure>
+
+<p>上面代码中，job1 必须先于 job2 完成，而 job3 等待 job1 和 job2 全部完成后才能运行。此段 workflow 运行顺序为 <code>job1 -&gt; job2 -&gt; job3</code></p>
+<ol start="6">
+<li>jobs.&lt;job_id&gt;.runs-on</li>
+</ol>
+<p>runs-on 字段指定运行所需要的虚拟机环境。此字段为必填字段。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>jobs.&lt;job_id&gt;.steps</li>
+</ol>
+<p>steps 字段指定每个 job 的执行步骤，每个步骤可以指定以下三个字段：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">jobs.&lt;job_id&gt;.steps.name:</span> <span class="string">步骤名称</span></span><br><span class="line"><span class="string">jobs.&lt;job_id&gt;.steps.run:</span> <span class="string">步骤所需要的命令或者action</span></span><br><span class="line"><span class="string">jobs.&lt;job_id&gt;.steps.env:</span> <span class="string">步骤所需的环境变量</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="一个比较完整的示例："><a href="#一个比较完整的示例：" class="headerlink" title="一个比较完整的示例："></a>一个比较完整的示例：</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">deploying</span> <span class="string">Hexo</span> <span class="string">project</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">pages</span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span> <span class="comment"># main 分支有 push 行为时就触发这个 action</span></span><br><span class="line"></span><br><span class="line"><span class="attr">env:</span></span><br><span class="line">  <span class="attr">TZ:</span> <span class="string">Asia/Shanghai</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build-and-deploy:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@master</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span> <span class="string">and</span> <span class="string">Deploy</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">theme-keep/hexo-deploy-github-pages-action@master</span> <span class="comment"># 使用专门部署 Hexo 到 GitHub pages 的 action</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="attr">PERSONAL_TOKEN:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.HEXO_BLOG_SECRET</span> <span class="string">&#125;&#125;</span> <span class="comment"># secret 名</span></span><br><span class="line">          <span class="attr">PUBLISH_REPOSITORY:</span> <span class="string">Whbbit1999/Whbbit1999.github.io</span> <span class="comment"># 公共仓库，格式：GitHub 用户名/仓库名</span></span><br><span class="line">          <span class="attr">BRANCH:</span> <span class="string">main</span> <span class="comment"># 分支，填 gh-pages 就行</span></span><br><span class="line">          <span class="attr">PUBLISH_DIR:</span> <span class="string">./public</span> <span class="comment"># 部署 public 目录下的文件</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="将-hexo-自动部署到-GitHub-Page-上"><a href="#将-hexo-自动部署到-GitHub-Page-上" class="headerlink" title="将 hexo 自动部署到 GitHub Page 上"></a>将 hexo 自动部署到 GitHub Page 上</h2><blockquote>
+<p>这里我们使用由 <a target="_blank" rel="noopener" href="https://github.com/theme-keep">theme-keep</a> 提供的 action <a target="_blank" rel="noopener" href="https://github.com/theme-keep/hexo-deploy-github-pages-action">hexo-deploy-github-pages-action</a> 来自动部署 Hexo</p>
+</blockquote>
+<h3 id="创建-GitHub-仓库"><a href="#创建-GitHub-仓库" class="headerlink" title="创建 GitHub 仓库"></a>创建 GitHub 仓库</h3><ol>
+<li>创建一个私有仓库用来存放 hexo 源代码（这里创建了一个 hexo-blog-source 仓库用来存放博客源码）</li>
+<li>创建一个公共仓库来展示编译后的页面，使用 GitHub Page（使用 xxx.github.io 来用作展示）</li>
+</ol>
+<blockquote>
+<p>xxx.github.io 中 <code>xxx</code> 代表你的 GitHub 用户名，这样创建出来的仓库可以使用 <code>xxx.github.io</code>来直接访问，或者可以自定义域名</p>
+</blockquote>
+<h3 id="创建-GitHub-Token"><a href="#创建-GitHub-Token" class="headerlink" title="创建 GitHub Token"></a>创建 GitHub Token</h3><p>创建一个有 <code>repo</code> 和 <code>workflow</code> 权限的 <a target="_blank" rel="noopener" href="https://github.com/settings/tokens/new">GitHub Token（点击跳转直接创建）</a><br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://whbbit-blog.oss-cn-beijing.aliyuncs.com/%E6%88%AA%E5%B1%8F2022-02-06%20%E4%B8%8B%E5%8D%8810.06.50.png" alt="github token"><br>我这里<code>Expiration</code>选择了<code>No expiration</code>不做时间上的限制。</p>
+<p>将生成的 token 添加到<strong>私有仓库</strong>的 Secrets 里，自定一个名称。我这里使用的是 <code>HEXO_BLOG_SECRET</code><br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://whbbit-blog.oss-cn-beijing.aliyuncs.com/%E6%88%AA%E5%B1%8F2022-02-06%20%E4%B8%8B%E5%8D%8810.13.06.png"></p>
+<blockquote>
+<p>这里的公有仓库只需要创建一个项目即可（初始化一个分支，这里我创建项目时添加 README.md 文件就自动帮忙创建了一个 main 分支，下面就用这个 main 分支来进行操作）</p>
+</blockquote>
+<h3 id="添加-workflows"><a href="#添加-workflows" class="headerlink" title="添加 workflows"></a>添加 workflows</h3><blockquote>
+<p>详细步骤参考上文。大概就是在项目根目录创建 <code>.github/workflows/hexo-deploy.yml</code></p>
+</blockquote>
+<p>我这里的 hexo-deploy.yml 配置如下</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">deploying</span> <span class="string">Hexo</span> <span class="string">project</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">pages</span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span> <span class="comment"># main 分支有 push 行为时就触发这个 action</span></span><br><span class="line"></span><br><span class="line"><span class="attr">env:</span></span><br><span class="line">  <span class="attr">TZ:</span> <span class="string">Asia/Shanghai</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build-and-deploy:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@master</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span> <span class="string">and</span> <span class="string">Deploy</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">theme-keep/hexo-deploy-github-pages-action@master</span> <span class="comment"># 使用专门部署 Hexo 到 GitHub pages 的 action</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="attr">PERSONAL_TOKEN:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.HEXO_BLOG_SECRET</span> <span class="string">&#125;&#125;</span> <span class="comment"># secret 名</span></span><br><span class="line">          <span class="attr">PUBLISH_REPOSITORY:</span> <span class="string">Whbbit1999/Whbbit1999.github.io</span> <span class="comment"># 公共仓库，格式：GitHub 用户名/仓库名</span></span><br><span class="line">          <span class="attr">BRANCH:</span> <span class="string">main</span> <span class="comment"># 分支，填你选择的分支就好</span></span><br><span class="line">          <span class="attr">PUBLISH_DIR:</span> <span class="string">./public</span> <span class="comment"># 部署 public 目录下的文件</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="push-代码，查看-action-执行过程"><a href="#push-代码，查看-action-执行过程" class="headerlink" title="push 代码，查看 action 执行过程"></a>push 代码，查看 action 执行过程</h3><p>这时就可以将本地的 hexo 代码 push 到 GitHub 上，在私有仓库的 Action 中查看本次运行步骤了</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://whbbit-blog.oss-cn-beijing.aliyuncs.com/%E6%88%AA%E5%B1%8F2022-02-06%20%E4%B8%8B%E5%8D%8810.21.25.png"></p>
+<blockquote>
+<p>可以点击卡片查看内部运行步骤<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://whbbit-blog.oss-cn-beijing.aliyuncs.com/%E6%88%AA%E5%B1%8F2022-02-06%20%E4%B8%8B%E5%8D%8810.21.54.png"></p>
+</blockquote>
+<blockquote>
+<p>运行成功后查看公有仓库，发现已经有编译完成的文件了，就可以直接进行访问<code>xxx.github.io</code>来进行查看你的 hexo 博客了<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://whbbit-blog.oss-cn-beijing.aliyuncs.com/%E6%88%AA%E5%B1%8F2022-02-06%20%E4%B8%8B%E5%8D%8810.24.51.png"></p>
+</blockquote>
+<hr>
+<p>参考文章：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2019/09/getting-started-with-github-actions.html">GitHub Actions 入门教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6943895271751286821">如何使用 GitHub Actions 自动部署 Hexo 博客</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/161969042">使用 GitHub Actions 自动部署 Hexo 博客到 GitHub Pages</a></li>
+</ol>
+
+
+<div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section><section id="share"><div class="header"><span>分享文章</span></div><div class="body"><div class="link"><input class="copy-area" readonly="true" id="copy-link" value="http://blog.whbbit.cn/2022/02/06/blog/2022-02-06-hexo-deploy/" /></div><div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot)"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/b32ef3da1162a.svg"/></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=http://blog.whbbit.cn/2022/02/06/blog/2022-02-06-hexo-deploy/&title=使用GitHub Actions进行hexo自动化部署 - WHBBIT&summary=第一次使用 GitHub Actions 进行 hexo 自动化部署记录"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/80c07e4dbb303.svg"/></a><a class="social share-item email" href="mailto:?subject=使用GitHub Actions进行hexo自动化部署 - WHBBIT&amp;body=http://blog.whbbit.cn/2022/02/06/blog/2022-02-06-hexo-deploy/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/a1b00e20f425d.svg"/></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/8411ed322ced6.svg"/></a></div><div class="qrcode" id="qrcode-wechat" style="visibility:hidden;height:0"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=http://blog.whbbit.cn/2022/02/06/blog/2022-02-06-hexo-deploy/index.html"/></div></div></section></div>
+
+</article>
+
+<div class="related-wrap reveal" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body fs14"><a id="next" href="/2021/03/31/blog/2021-03-31-18-27-js-string/">JavaScript字符串操作的方法<span class="note">较早</span></a><div class="line"></div><a id="prev" href="/2022/02/09/blog/20220209-youtube-create-channel/">YouTube 创建频道<span class="note">较新</span></a></section></div>
+
+
+<div class="related-wrap reveal" id="related-posts"></div>
+
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="text"><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="http://blog.whbbit.cn/">@whbbit</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.6.1" title="v1.6.1">Stellar</a> 作为主题。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.6.1';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@6/swiper-bundle.min.css","js":"https://unpkg.com/swiper@6/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

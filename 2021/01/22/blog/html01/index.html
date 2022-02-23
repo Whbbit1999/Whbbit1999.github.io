@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 6.0.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  <title>HTML基础知识整理1️⃣ - WHBBIT</title>
+
+  
+    <meta name="description" content="HTML基础整理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML基础知识整理1️⃣">
+<meta property="og:url" content="http://blog.whbbit.cn/2021/01/22/blog/html01/index.html">
+<meta property="og:site_name" content="WHBBIT">
+<meta property="og:description" content="HTML基础整理">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://whbbit-picture.oss-cn-beijing.aliyuncs.com/img/20210122182054.png">
+<meta property="og:image" content="https://whbbit-picture.oss-cn-beijing.aliyuncs.com/img/20201227153140.png">
+<meta property="article:published_time" content="2021-01-22T08:54:35.000Z">
+<meta property="article:modified_time" content="2021-01-22T08:54:35.000Z">
+<meta property="article:author" content="whbbit">
+<meta property="article:tag" content="html">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://whbbit-picture.oss-cn-beijing.aliyuncs.com/img/20210122182054.png">
+  
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="WHBBIT" type="application/atom+xml">
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+    
+      <link rel="icon" type="image/png" sizes="32x32" href="https://whbbit-blog.oss-cn-beijing.aliyuncs.com/codelogo.png">
+    
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='post'>
+    
+
+
+<header class="header">
+
+<div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://whbbit-blog.oss-cn-beijing.aliyuncs.com/codelogo.png" onerror="javascript:this.classList.add('error');this.src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/image/2659360.svg';"></a><a class="title" href="/"><div class="main">WHBBIT</div><div class="sub normal cap">月空人</div><div class="sub hover cap" style="opacity:0">blog.whbbit.cn</div></a></div>
+<nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/sites/">收藏</a><a class="nav-item" href="/more/">更多</a></nav></header>
+
+<div class="widgets">
+
+<div class="widget-wrap single" id="toc"><div class="widget-header cap dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#web%E6%A0%87%E5%87%86"><span class="toc-text">web标准</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="toc-text">HTML相关概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-HTML"><span class="toc-text">1. HTML</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-XML"><span class="toc-text">2. XML</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-HTML5"><span class="toc-text">3. HTML5</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-text">HTML基本结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%96%87%E6%A1%A3%E7%BB%93%E6%9E%84"><span class="toc-text">1. 文档结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%BD%91%E9%A1%B5%E7%9A%84%E6%A0%B9%E5%85%83%E7%B4%A0%EF%BC%88%E6%A0%B9%E6%A0%87%E7%AD%BE%EF%BC%89"><span class="toc-text">2. 网页的根元素（根标签）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="toc-text">HTML基本语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%B8%B8%E8%A7%84%E6%A0%87%E8%AE%B0%EF%BC%88%E5%8F%8C%E6%A0%87%E8%AE%B0%EF%BC%89"><span class="toc-text">1. 常规标记（双标记）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%A9%BA%E6%A0%87%E8%AE%B0%EF%BC%88%E5%8D%95%E6%A0%87%E8%AE%B0%EF%BC%89"><span class="toc-text">2. 空标记（单标记）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML%E5%B8%B8%E7%94%A8%E6%A0%87%E8%AE%B0"><span class="toc-text">HTML常用标记</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%96%87%E6%9C%AC%E6%A0%87%E9%A2%98"><span class="toc-text">1. 文本标题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%AE%B5%E8%90%BD%E6%A0%87%E9%A2%98"><span class="toc-text">2. 段落标题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%8D%A2%E8%A1%8C"><span class="toc-text">3. 换行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-HTML%E4%B8%AD%E7%9A%84%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6"><span class="toc-text">4. HTML中的转义字符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%8A%A0%E7%B2%97"><span class="toc-text">5. 加粗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%80%BE%E6%96%9C"><span class="toc-text">6. 倾斜</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E5%88%86%E9%9A%94%E7%BA%BF"><span class="toc-text">7. 分隔线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E4%B8%8A%E6%A0%87%E5%92%8C%E4%B8%8B%E6%A0%87"><span class="toc-text">8. 上标和下标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E5%88%A0%E9%99%A4%E7%BA%BF"><span class="toc-text">9. 删除线</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML%E4%B8%AD%E7%9A%84%E4%B8%89%E7%A7%8D%E5%88%97%E8%A1%A8"><span class="toc-text">HTML中的三种列表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8"><span class="toc-text">1. 有序列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8"><span class="toc-text">2. 无序列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%88%97%E8%A1%A8"><span class="toc-text">3. 自定义列表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%E7%9A%84%E4%B8%89%E7%A7%8D%E5%86%99%E6%B3%95"><span class="toc-text">相对路径的三种写法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E7%BD%91%E9%A1%B5%E4%B8%AD%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87"><span class="toc-text">在网页中插入图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B6%85%E9%93%BE%E6%8E%A5"><span class="toc-text">超链接</span></a></li></ol></div></div></div>
+
+
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/blog/categories/html/">html</a></div><div id="post-meta">发布于&nbsp;<time datetime="2021-01-22T08:54:35.000Z">2021-01-22</time></div></div>
+
+<article class='content md post'>
+<h1 class="article-title"><span>HTML基础知识整理1️⃣</span></h1>
+<p>HTML基础整理<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://whbbit-picture.oss-cn-beijing.aliyuncs.com/img/20210122182054.png"></p>
+<span id="more"></span>
+
+<h2 id="web标准"><a href="#web标准" class="headerlink" title="web标准"></a>web标准</h2><p>web标准是网页制作的标准，它不是一个标准，而是由一系列标准组成的。<br>web标准包含了三方面：</p>
+<ol>
+<li>结构：HTML</li>
+<li>表现：CSS</li>
+<li>行为：JavaScript</li>
+</ol>
+<blockquote>
+<p>web标准由W3C万维网联盟，制定HTML和CSS的相关标准<br>ECMS（欧洲电脑厂联合会），制定JavaScript相关标准</p>
+</blockquote>
+<h2 id="HTML相关概念"><a href="#HTML相关概念" class="headerlink" title="HTML相关概念"></a>HTML相关概念</h2><h3 id="1-HTML"><a href="#1-HTML" class="headerlink" title="1. HTML"></a>1. HTML</h3><p>超文本标记语言（Hyper Text Markup Language）</p>
+<h3 id="2-XML"><a href="#2-XML" class="headerlink" title="2. XML"></a>2. XML</h3><p>可扩展超文本标记语言（Extensible Hyper Text Markup Language）</p>
+<blockquote>
+<p>XHTML 与 HTML 相比并未增加新的标签，只是语法要求更加严格</p>
+</blockquote>
+<h3 id="3-HTML5"><a href="#3-HTML5" class="headerlink" title="3. HTML5"></a>3. HTML5</h3><p>HTML5是HTML的第五次重大修改，是指具体意义上的HTML5</p>
+<blockquote>
+<p>广义上的H5是指web前端领域的核心技术</p>
+</blockquote>
+<h2 id="HTML基本结构"><a href="#HTML基本结构" class="headerlink" title="HTML基本结构"></a>HTML基本结构</h2><h3 id="1-文档结构"><a href="#1-文档结构" class="headerlink" title="1. 文档结构"></a>1. 文档结构</h3><p>作用： 声明文档类型，告知浏览器使用那种 HTML 或 XHTML 规范</p>
+<blockquote>
+<p>HTML5 文档声明语法如下：<br><code>&lt;!DOCTYPE html&gt;</code> 或 <code>&lt;!doctype html&gt;</code></p>
+</blockquote>
+<h3 id="2-网页的根元素（根标签）"><a href="#2-网页的根元素（根标签）" class="headerlink" title="2. 网页的根元素（根标签）"></a>2. 网页的根元素（根标签）</h3><p>网页的根元素是 <code>&lt;html&gt;&lt;/html&gt;</code> 所有的网页内容和标签都必须放到 <code>&lt;html&gt;&lt;/html&gt;</code> 之间。<br><code>&lt;html&gt;&lt;/html&gt;</code> 标签包含了两大部分： head 部分和 body 部分</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>head 部分：<br>主要用于设置字符编码、网站标题、关键字描述、引入一些外部文件（CSS文件或JavaScript文件）<br>body 部分<br>所有需要在网页中显示的内容及放置内容的标签都必须放置在 body 部分</p>
+</blockquote>
+<h2 id="HTML基本语法"><a href="#HTML基本语法" class="headerlink" title="HTML基本语法"></a>HTML基本语法</h2><h3 id="1-常规标记（双标记）"><a href="#1-常规标记（双标记）" class="headerlink" title="1. 常规标记（双标记）"></a>1. 常规标记（双标记）</h3><p>语法： <code>&lt;标记 属性=&quot;属性值&quot;&gt;&lt;/标记&gt;</code><br>例如：<code>&lt;h1 id=&quot;title&quot; class=&quot;title&quot;&gt;&lt;/h1&gt;</code></p>
+<h3 id="2-空标记（单标记）"><a href="#2-空标记（单标记）" class="headerlink" title="2. 空标记（单标记）"></a>2. 空标记（单标记）</h3><p>语法：<code>&lt;标记 属性=&quot;属性值&quot; /&gt;</code>，或 <code>&lt;标记 属性=&quot;属性值&quot;&gt;</code><br>例如：<code>&lt;img src=&quot;https://whbbit-picture.oss-cn-beijing.aliyuncs.com/img/20201227153140.png&quot; alt=&quot;😂，这里是图片&quot; /&gt;</code></p>
+<h2 id="HTML常用标记"><a href="#HTML常用标记" class="headerlink" title="HTML常用标记"></a>HTML常用标记</h2><h3 id="1-文本标题"><a href="#1-文本标题" class="headerlink" title="1. 文本标题"></a>1. 文本标题</h3><p>语法：<code>&lt;hx&gt;&lt;/hx&gt;</code> </p>
+<blockquote>
+<p>x 为 1-6 之间的数字。h1对应最大的标题，h6对应最小的标题，字体都有加粗效果。<br>例如：<code>&lt;h1&gt;好好学习，天天向上👌&lt;/h1&gt;</code></p>
+</blockquote>
+<h3 id="2-段落标题"><a href="#2-段落标题" class="headerlink" title="2. 段落标题"></a>2. 段落标题</h3><p>语法：<code>&lt;p&gt;内容&lt;/p&gt;</code><br>例如：<code>&lt;p&gt;这里是段落内容&lt;/p&gt;</code></p>
+<h3 id="3-换行"><a href="#3-换行" class="headerlink" title="3. 换行"></a>3. 换行</h3><p>语法：<code>&lt;hr /&gt;</code> 或 <code>&lt;hr &gt;</code></p>
+<h3 id="4-HTML中的转义字符"><a href="#4-HTML中的转义字符" class="headerlink" title="4. HTML中的转义字符"></a>4. HTML中的转义字符</h3><ul>
+<li><code>&amp;nbsp;</code> 空格</li>
+<li><code>&amp;gt;</code> &gt;</li>
+<li><code>&amp;lt;</code> &lt;</li>
+<li><code>&amp;copy;</code> &amp;copy;版权符号</li>
+<li><code>&amp;reg;</code>  &amp;reg;注册商标</li>
+</ul>
+<h3 id="5-加粗"><a href="#5-加粗" class="headerlink" title="5. 加粗"></a>5. 加粗</h3><p>语法：<code>&lt;b&gt;加粗&lt;/b&gt;</code> 或 <code>&lt;strong&gt;加粗&lt;/strong&gt;</code><br>例如：<b>加粗</b></p>
+<h3 id="6-倾斜"><a href="#6-倾斜" class="headerlink" title="6. 倾斜"></a>6. 倾斜</h3><p>语法：<code>&lt;i&gt;倾斜&lt;/i&gt;</code> 或 <code>&lt;em&gt;倾斜&lt;/em&gt;</code><br>例如：<i>倾斜</i> </p>
+<h3 id="7-分隔线"><a href="#7-分隔线" class="headerlink" title="7. 分隔线"></a>7. 分隔线</h3><p>语法：<code>&lt;hr /&gt;</code> 或 <code>&lt;hr&gt;</code><br>例如： <hr ></p>
+<h3 id="8-上标和下标"><a href="#8-上标和下标" class="headerlink" title="8. 上标和下标"></a>8. 上标和下标</h3><p>语法：<code>&lt;sup&gt;上标&lt;/sup&gt;</code> <code>&lt;sub&gt;下标&lt;/sub&gt;</code><br>例如：log<sub>2</sub>2 , 3<sup>2</sup> &#x3D; 9</p>
+<h3 id="9-删除线"><a href="#9-删除线" class="headerlink" title="9. 删除线"></a>9. 删除线</h3><p>语法：<code>&lt;del&gt;删除线&lt;/del&gt;</code> 或 <code>&lt;u&gt;删除线&lt;/u&gt;</code><br>例如：<del>删除线</del></p>
+<h2 id="HTML中的三种列表"><a href="#HTML中的三种列表" class="headerlink" title="HTML中的三种列表"></a>HTML中的三种列表</h2><h3 id="1-有序列表"><a href="#1-有序列表" class="headerlink" title="1. 有序列表"></a>1. 有序列表</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ol</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>html<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>css<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>js<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<ol>
+  <li>html</li>
+  <li>css</li>
+  <li>js</li>
+</ol>
+
+<h3 id="2-无序列表"><a href="#2-无序列表" class="headerlink" title="2. 无序列表"></a>2. 无序列表</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>html<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>css<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>js<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<ul>
+  <li>html</li>
+  <li>css</li>
+  <li>js</li>
+</ul>
+
+<h3 id="3-自定义列表"><a href="#3-自定义列表" class="headerlink" title="3. 自定义列表"></a>3. 自定义列表</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dl</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dt</span>&gt;</span>web前端<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dd</span>&gt;</span>未来都是web前端的天下<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dl</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<dl>
+  <dt>web前端</dt>
+  <dd>未来都是web前端的天下</dd>
+  <dt>js</dt>
+  <dd>能用js实现的，一定都会用js实现</dd>
+</dl>
+
+<blockquote>
+<p>dl 和 dd 是并列的</p>
+</blockquote>
+<h2 id="相对路径的三种写法"><a href="#相对路径的三种写法" class="headerlink" title="相对路径的三种写法"></a>相对路径的三种写法</h2><ol>
+<li>当前文件和目标文件在同一目录下,直接写目标文件的文件名即可,或在其前加上<code>./</code>表示当前目录:</li>
+</ol>
+<p>  <code>&lt;img src=&quot;main.jpg&quot; alt=&quot;主要图片&quot; /&gt;</code> 或者 <code>&lt;img src=&quot;./main.jpg&quot; alt=&quot;主要图片&quot; /&gt;</code></p>
+<ol start="2">
+<li><p>当前文件和目标文件所在文件夹在同一目录下:<br>  <code>&lt;img src=&quot;img/main.jpg&quot; alt=&quot;主要图片&quot; /&gt;</code> 或者 <code>&lt;img src=&quot;./img/main.jpg&quot; alt=&quot;主要图片&quot; /&gt;</code></p>
+</li>
+<li><p>当前文件所在文件夹和目标文件所在文件夹在同一目录下:<br>  <code>&lt;img src=&quot;../img/main.jpg&quot; alt=&quot;主要图片&quot; /&gt;</code></p>
+</li>
+</ol>
+<blockquote>
+<p>.&#x2F;表示当前目录, ..&#x2F;表示上级目录</p>
+</blockquote>
+<h2 id="在网页中插入图片"><a href="#在网页中插入图片" class="headerlink" title="在网页中插入图片"></a>在网页中插入图片</h2><p>语法: <code>&lt;img src=&quot;图片路径&quot; title=&quot;鼠标悬停显示&quot; width=&quot;图片宽度&quot; height=&quot;图片高度&quot; alt=&quot;图片显示不出来时显示此段文字&quot; /&gt;</code><br>例如:<br><code>&lt;img src=&quot;https://whbbit-picture.oss-cn-beijing.aliyuncs.com/img/20201227153140.png&quot; title=&quot;划过显示&quot; width=&quot;200&quot; height=&quot;200&quot; alt=&quot;月空&quot; /&gt;</code><br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://whbbit-picture.oss-cn-beijing.aliyuncs.com/img/20201227153140.png" title="划过显示" width="200" height="200" alt="月空" /></p>
+<blockquote>
+<p>title属性设置鼠标悬停在图片上时显示提示文本<br>alt属性设置图片加载失败时显示的替换文本,<strong>有优化作用</strong></p>
+</blockquote>
+<h2 id="超链接"><a href="#超链接" class="headerlink" title="超链接"></a>超链接</h2><p>语法: <code>&lt;a href=&quot;连接地址或本地文件路径&quot; target=&quot;_blank&quot; title=&quot;悬停显示文字&quot; &gt;图片或文字&lt;/a&gt;</code></p>
+<p>例如:  </p>
+<ul>
+<li><code>&lt;a href=&quot;http://blog.whbbit.cn&quot;&gt;月空&lt;/a&gt; 在本页跳转</code><a href="http://blog.whbbit.cn">月空</a></li>
+<li><code>&lt;a href=&quot;http://blog.whbbit.cn&quot; target=&quot;_blank&quot;&gt;月空&lt;/a&gt; 在新窗口页跳转</code><a href="http://blog.whbbit.cn" target="_blank">月空</a></li>
+<li><code>&lt;a href=&quot;#&quot;&gt;月空&lt;/a&gt; 跳转到本页顶部</code><a href="#">月空</a><blockquote>
+<p>target&#x3D;”_blank” 设置超链接在新窗口打开<br>href&#x3D;”#” 时,超链接为空连接,跳转到本页顶部</p>
+</blockquote>
+</li>
+</ul>
+
+
+<div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section><section id="share"><div class="header"><span>分享文章</span></div><div class="body"><div class="link"><input class="copy-area" readonly="true" id="copy-link" value="http://blog.whbbit.cn/2021/01/22/blog/html01/" /></div><div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot)"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/b32ef3da1162a.svg"/></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=http://blog.whbbit.cn/2021/01/22/blog/html01/&title=HTML基础知识整理1️⃣ - WHBBIT&summary=HTML基础整理"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/80c07e4dbb303.svg"/></a><a class="social share-item email" href="mailto:?subject=HTML基础知识整理1️⃣ - WHBBIT&amp;body=http://blog.whbbit.cn/2021/01/22/blog/html01/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/a1b00e20f425d.svg"/></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/8411ed322ced6.svg"/></a></div><div class="qrcode" id="qrcode-wechat" style="visibility:hidden;height:0"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=http://blog.whbbit.cn/2021/01/22/blog/html01/index.html"/></div></div></section></div>
+
+</article>
+
+<div class="related-wrap reveal" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body fs14"><a id="next" href="/2021/01/13/blog/React01/">React基础<span class="note">较早</span></a><div class="line"></div><a id="prev" href="/2021/01/26/blog/mini-program-outwebsite/">一句代码将个人网站嵌入小程序中<span class="note">较新</span></a></section></div>
+
+
+<div class="related-wrap reveal" id="related-posts">
+    <section class='header'>
+      <div class='title cap theme'>您可能感兴趣的文章</div>
+    </section>
+    <section class='body'>
+    <div class="related-posts"><a class="item" href="/2021/03/09/blog/2021-03-09-23-04-placeholder/" title="修改input placeholder的颜色"><div class="img"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?css,html" /></div><span class="title">修改input placeholder的颜色</span><span class="excerpt">今天用到了修改 input 的 placeholder 效果，以前没怎么注意到，今天就总结一下。</span></a><a class="item" href="/2019/07/24/blog/HtmlAndCssCompatible/" title="HTML和css的常见兼容性问题"><div class="img"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?css,html" /></div><span class="title">HTML和css的常见兼容性问题</span></a><a class="item" href="/2019/11/21/blog/cookieLocalStorage/" title="cookie，localStorage 和 sessionStorage的区别"><div class="img"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?js,html" /></div><span class="title">cookie，localStorage 和 sessionStorage的区别</span></a><a class="item" href="/2019/05/10/blog/cssSrcAndHref/" title="src和href、link和import的区别"><div class="img"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?css,html" /></div><span class="title">src和href、link和import的区别</span></a></div></section></div>
+
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="text"><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="http://blog.whbbit.cn/">@whbbit</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.6.1" title="v1.6.1">Stellar</a> 作为主题。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.6.1';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@6/swiper-bundle.min.css","js":"https://unpkg.com/swiper@6/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>
