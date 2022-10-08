@@ -1,0 +1,1 @@
+import{_ as e,o as t,c as r}from"./app.ed522904.js";const m=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"program/docker/index.md","lastUpdated":1658244845000}'),a={name:"program/docker/index.md"};function o(n,c,s,d,p,i){return t(),r("div")}const f=e(a,[["render",o]]);export{m as __pageData,f as default};
